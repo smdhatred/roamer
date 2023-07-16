@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridSpawner : MonoBehaviour
+namespace Maze
 {
-    public int width;
-    public int height;
-    public int cellsize;
-    public Vector3 gridSpawnPOS;
-    [HideInInspector] public CustomGrid grid;
-
-    private void Awake()
+    public class GridSpawner : MonoBehaviour
     {
-        grid = new CustomGrid(width, height, cellsize, gridSpawnPOS);
+        public int width;
+        public int height;
+        public int cellsize;
+        public Vector3 gridSpawnPOS;
+        [HideInInspector] public CustomGrid grid;
+
+        private void Awake()
+        {
+            grid = new CustomGrid(width, height, cellsize, gridSpawnPOS);
+        }
     }
 }

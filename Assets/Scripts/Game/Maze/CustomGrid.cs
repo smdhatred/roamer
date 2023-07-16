@@ -2,48 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CustomGrid
+namespace Maze
 {
-    private int width;
-    private int height;
-    private int cellsize;
-    private Vector3 originPosition;
-    private int[,] gridArray;
-
-    public CustomGrid(int width, int height, int cellSize, Vector3 originPosition)
+    public class CustomGrid
     {
-        this.width = width;
-        this.height = height;
-        this.cellsize = cellSize;
-        this.originPosition = originPosition;
+        private int width;
+        private int height;
+        private int cellsize;
+        private Vector3 originPosition;
+        private int[,] gridArray;
 
-        gridArray = new int[width, height];
-
-        for (int x = 0; x < gridArray.GetLength(0); x++)
+        public CustomGrid(int width, int height, int cellSize, Vector3 originPosition)
         {
-            for (int y = 0; y < gridArray.GetLength(1); y++)
+            this.width = width;
+            this.height = height;
+            this.cellsize = cellSize;
+            this.originPosition = originPosition;
+
+            gridArray = new int[width, height];
+
+            for (int x = 0; x < gridArray.GetLength(0); x++)
             {
-                Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 1000f);
-                Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 1000f);
+                for (int y = 0; y < gridArray.GetLength(1); y++)
+                {
+                    Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 1000f);
+                    Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 1000f);
+                }
             }
         }
-    }
 
-    public int GetCellSize()
-    {
-        return cellsize;
-    }
+        public int GetCellSize()
+        {
+            return cellsize;
+        }
 
-    public Vector3 GetWorldPosition(int x, int y)
-    {
-        return new Vector3(x, y, 0) * cellsize + originPosition;
-    }
+        public Vector3 GetWorldPosition(int x, int y)
+        {
+            return new Vector3(x, y, 0) * cellsize + originPosition;
+        }
 
-    public int[] GetXY(Vector3 worldPosition)
-    {
-        int x = Mathf.FloorToInt((worldPosition - originPosition).x / cellsize);
-        int y = Mathf.FloorToInt((worldPosition - originPosition).y / cellsize);
+        public Vector3 GetEscapeWorldPosition(int x, int y)
+        {
+            return new Vector3(x, y, 0) * (cellsize/2) + originPosition;
+        }
 
-        return new int[] { x, y };
+        public int[] GetXY(Vector3 worldPosition)
+        {
+            int x = Mathf.FloorToInt((worldPosition - originPosition).x / cellsize);
+            int y = Mathf.FloorToInt((worldPosition - originPosition).y / cellsize);
+
+            return new int[] { x, y };
+        }
     }
 }
